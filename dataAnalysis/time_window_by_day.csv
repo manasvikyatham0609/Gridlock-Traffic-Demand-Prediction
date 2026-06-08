@@ -1,4 +1,0 @@
-dataset,day,row_count,min_timestamp,max_timestamp,unique_timestamps
-train,48,69427,0:0,23:45,96
-train,49,7872,0:0,2:0,9
-test,49,41778,2:15,13:45,47
