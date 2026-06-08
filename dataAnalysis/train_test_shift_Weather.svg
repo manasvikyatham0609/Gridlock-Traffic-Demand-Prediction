@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="560" viewBox="0 0 980 560">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#111827} .axis{stroke:#374151;stroke-width:1} .grid{stroke:#e5e7eb;stroke-width:1} .muted{fill:#6b7280;font-size:11px} .title{font-size:18px;font-weight:700} .label{font-size:12px;font-weight:600}</style>
+<text x="90" y="30" class="title">Train-test Weather distribution</text>
+<line x1="90" y1="420.0" x2="950" y2="420.0" class="grid"/>
+<text x="82" y="424.0" text-anchor="end" class="muted">0</text>
+<line x1="90" y1="348.0" x2="950" y2="348.0" class="grid"/>
+<text x="82" y="352.0" text-anchor="end" class="muted">0.07218</text>
+<line x1="90" y1="276.0" x2="950" y2="276.0" class="grid"/>
+<text x="82" y="280.0" text-anchor="end" class="muted">0.1444</text>
+<line x1="90" y1="204.0" x2="950" y2="204.0" class="grid"/>
+<text x="82" y="208.0" text-anchor="end" class="muted">0.2165</text>
+<line x1="90" y1="132.0" x2="950" y2="132.0" class="grid"/>
+<text x="82" y="136.0" text-anchor="end" class="muted">0.2887</text>
+<line x1="90" y1="60.0" x2="950" y2="60.0" class="grid"/>
+<text x="82" y="64.0" text-anchor="end" class="muted">0.3609</text>
+<rect x="119.2" y="62.3" width="55.0" height="357.7" fill="#2563eb" opacity="0.84"/>
+<rect x="176.3" y="60.0" width="55.0" height="360.0" fill="#dc2626" opacity="0.84"/>
+<text x="176.0" y="438" text-anchor="end" class="muted" transform="rotate(-45 176.0,438)">Sunny</text>
+<rect x="291.2" y="151.3" width="55.0" height="268.7" fill="#2563eb" opacity="0.84"/>
+<rect x="348.3" y="155.4" width="55.0" height="264.6" fill="#dc2626" opacity="0.84"/>
+<text x="348.0" y="438" text-anchor="end" class="muted" transform="rotate(-45 348.0,438)">Rainy</text>
+<rect x="463.2" y="158.8" width="55.0" height="261.2" fill="#2563eb" opacity="0.84"/>
+<rect x="520.3" y="154.9" width="55.0" height="265.1" fill="#dc2626" opacity="0.84"/>
+<text x="520.0" y="438" text-anchor="end" class="muted" transform="rotate(-45 520.0,438)">Foggy</text>
+<rect x="635.2" y="320.4" width="55.0" height="99.6" fill="#2563eb" opacity="0.84"/>
+<rect x="692.3" y="322.4" width="55.0" height="97.6" fill="#dc2626" opacity="0.84"/>
+<text x="692.0" y="438" text-anchor="end" class="muted" transform="rotate(-45 692.0,438)">Snowy</text>
+<rect x="807.2" y="409.7" width="55.0" height="10.3" fill="#2563eb" opacity="0.84"/>
+<rect x="864.3" y="409.7" width="55.0" height="10.3" fill="#dc2626" opacity="0.84"/>
+<text x="864.0" y="438" text-anchor="end" class="muted" transform="rotate(-45 864.0,438)">&lt;MISSING&gt;</text>
+<rect x="800" y="25" width="12" height="12" fill="#2563eb"/><text x="818" y="36" class="muted">train</text>
+<rect x="860" y="25" width="12" height="12" fill="#dc2626"/><text x="878" y="36" class="muted">test</text>
+<line x1="90" y1="420" x2="950" y2="420" class="axis"/>
+<line x1="90" y1="60" x2="90" y2="420" class="axis"/>
+<text x="18" y="240.0" transform="rotate(-90 18,240.0)" text-anchor="middle" class="label">share</text>
+</svg>

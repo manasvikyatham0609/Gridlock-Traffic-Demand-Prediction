@@ -1,0 +1,428 @@
+# Gridlock Traffic Demand Prediction
+
+## Overview
+
+This project aims to predict traffic demand using machine learning models trained on spatio-temporal traffic data. The solution focuses on extensive feature engineering, gradient boosting models, ensembling, and stacking techniques to maximize predictive performance.
+
+The final solution uses:
+
+- LightGBM
+- CatBoost
+- XGBoost
+- Weighted Ensembling
+- Stacking (Ridge Regression Meta Model)
+
+---
+
+## Problem Statement
+
+Traffic congestion is a major challenge in modern cities. Accurate traffic demand prediction helps transportation authorities and city planners optimize traffic flow, reduce congestion, and improve infrastructure planning.
+
+The objective is to predict traffic demand for unseen observations using historical traffic and environmental data.
+
+---
+
+# Project Structure
+
+```text
+gridlock/
+│
+├── README.md
+│
+├── src/
+│   ├── phase12_features.py
+│   ├── train_baseline.py
+│   ├── train_advanced.py
+│   ├── train_lightgbm.py
+│   ├── train_catboost.py
+│   ├── train_xgboost.py
+│   ├── ensemble.py
+│   ├── triple_ensemble.py
+│   └── stacking.py
+│
+├── outputs/
+│   └── submissions/
+│       └── final_triple_ensemble.csv
+│
+└── requirements.txt
+```
+
+---
+
+# Dataset
+
+The dataset contains traffic demand observations along with:
+
+- Timestamp information
+- Geohash location identifiers
+- Weather conditions
+- Road type information
+- Vehicle information
+- Landmark information
+- Geographic coordinates
+
+Target Variable:
+
+```text
+demand
+```
+
+---
+
+# Feature Engineering
+
+## 1. Timestamp Features
+
+Extracted from the timestamp column:
+
+- Hour
+- Day
+- Day of Week
+- Month
+- Weekend Indicator
+
+These features help capture temporal traffic patterns.
+
+---
+
+## 2. Geohash Features
+
+Generated:
+
+- geohash_prefix_2
+- geohash_prefix_3
+- geohash_prefix_4
+
+Purpose:
+
+- Capture spatial hierarchy
+- Improve location-based learning
+
+---
+
+## 3. Demand Aggregation Features
+
+Created statistical features such as:
+
+- Mean demand by hour
+- Mean demand by day
+- Mean demand by geohash
+
+These provide historical demand behavior.
+
+---
+
+## 4. Interaction Features
+
+Examples:
+
+```python
+hour * Temperature
+hour * Humidity
+dayofweek * Temperature
+```
+
+These capture interactions between temporal and environmental conditions.
+
+---
+
+## 5. Count Encoding
+
+Applied on:
+
+- geohash
+- RoadType
+- Weather
+- Landmarks
+
+Purpose:
+
+Convert categorical frequencies into numerical features.
+
+---
+
+## 6. Target Encoding
+
+Applied using training data statistics:
+
+- geohash mean demand
+- RoadType mean demand
+- Weather mean demand
+
+Purpose:
+
+Provide strong predictive signals while reducing dimensionality.
+
+---
+
+## Models Used
+
+# 1. LightGBM
+
+Main parameters:
+
+```python
+n_estimators=3000
+learning_rate=0.03
+max_depth=7
+num_leaves=202
+subsample=0.97
+colsample_bytree=0.78
+```
+
+Strengths:
+
+- Fast training
+- Excellent handling of tabular data
+- Native categorical support
+
+---
+
+# 2. CatBoost
+
+Main parameters:
+
+```python
+iterations=2000
+learning_rate=0.05
+depth=8
+```
+
+Strengths:
+
+- Handles categorical variables effectively
+- Strong generalization
+
+---
+
+# 3. XGBoost
+
+Main parameters:
+
+```python
+n_estimators=3000
+learning_rate=0.03
+max_depth=8
+subsample=0.8
+colsample_bytree=0.8
+```
+
+Strengths:
+
+- Robust gradient boosting framework
+- Excellent predictive performance
+
+---
+
+# Cross Validation Strategy
+
+Used:
+
+```python
+5-Fold K-Fold Cross Validation
+```
+
+Benefits:
+
+- Reliable validation
+- Reduced overfitting
+- Stable model evaluation
+
+---
+
+# Ensemble Techniques
+
+## Weighted Ensemble
+
+Combined predictions from:
+
+- LightGBM
+- CatBoost
+- XGBoost
+
+Example:
+
+```python
+Final Prediction =0.50 * LightGBM +0.50 * XGBoost +0.50 * CatBoost
+```
+
+Weights were optimized using Out-of-Fold predictions.
+
+---
+
+## Stacking
+
+Level-1 Models:
+
+- LightGBM
+- CatBoost
+- XGBoost
+
+Meta Model:
+
+```python
+Ridge Regression
+```
+
+Process:
+
+1. Generate OOF predictions.
+2. Use OOF predictions as features.
+3. Train Ridge Regression.
+4. Generate final predictions.
+
+---
+
+# Performance Summary
+
+| Model | CV Score |
+|---------|---------|
+| LightGBM | 95.61 |
+| CatBoost | 95.34 |
+| XGBoost | 95.61 |
+| Triple Ensemble | 95.84 |
+| Stacking | 95.80 |
+Best local validation score achieved:
+
+```text
+95.84
+```
+
+---
+
+# Tools and Libraries Used
+
+## Data Processing
+
+- Pandas
+- NumPy
+
+## Machine Learning
+
+- LightGBM
+- CatBoost
+- XGBoost
+- Scikit-Learn
+
+## Validation
+
+- KFold Cross Validation
+- R² Score
+
+---
+
+# Workflow
+
+Step 1
+
+```text
+Raw Data
+```
+
+↓
+
+Step 2
+
+```text
+Feature Engineering
+```
+
+↓
+
+Step 3
+
+```text
+Train LightGBM
+```
+
+↓
+
+Step 4
+
+```text
+Train CatBoost
+```
+
+↓
+
+Step 5
+
+```text
+Train XGBoost
+```
+
+↓
+
+Step 6
+
+```text
+Generate OOF Predictions
+```
+
+↓
+
+Step 7
+
+```text
+Weighted Ensemble
+```
+
+↓
+
+Step 8
+
+```text
+Stacking
+```
+
+↓
+
+Step 9
+
+```text
+Final Submission
+```
+
+---
+
+# Running the Project
+
+Feature Engineering:
+
+```bash
+python src/phase12_features.py
+```
+
+Train Models:
+
+```bash
+python src/train_lightgbm.py
+
+python src/train_catboost.py
+
+python src/train_xgboost.py
+```
+
+Create Ensembles:
+
+```bash
+python src/ensemble.py
+
+python src/triple_ensemble.py
+
+python src/stacking.py
+```
+
+Final submission file:
+
+```text
+outputs/submissions/final_triple_ensemble.csv
+```
+
+---
+
+# Conclusion
+
+This solution combines extensive feature engineering with multiple gradient boosting algorithms and advanced ensemble techniques. By leveraging LightGBM, CatBoost, XGBoost, weighted averaging, and stacking, the model effectively captures temporal, spatial, and environmental traffic patterns to achieve strong predictive performance.
+
+The final submission is generated using the stacking framework, which produced the best validation performance among all tested approaches.
